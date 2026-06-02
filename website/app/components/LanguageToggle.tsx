@@ -4,8 +4,18 @@ import { DEFAULT_LOCALE, type Locale, localeNames } from "@/lib/i18n"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
-/** Sections that have locale mirrors under /<locale>. */
+/**
+ * Paths that have a real Korean mirror under /ko. Only the content sections
+ * have ko versions today; the home page and everything else are English-only
+ * for now. For English-only pages we keep the user on the SAME path when they
+ * toggle language (so the menu position is preserved) rather than bouncing them
+ * to an unrelated page.
+ */
 const MIRRORED = ["/paper", "/docs", "/blog"]
+
+function isMirrored(enPath: string): boolean {
+	return MIRRORED.some((p) => enPath === p || enPath.startsWith(`${p}/`))
+}
 
 function currentLocale(pathname: string): Locale {
 	return pathname === "/ko" || pathname.startsWith("/ko/") ? "ko" : "en"
@@ -18,14 +28,13 @@ function toEnglishPath(pathname: string): string {
 	return pathname
 }
 
-/** Map an English path to its locale path, falling back to a sensible entry. */
+/** Map an English path to its locale path. */
 function toLocalePath(enPath: string, locale: Locale): string {
 	if (locale === DEFAULT_LOCALE) return enPath
-	const isMirrored = MIRRORED.some(
-		(p) => enPath === p || enPath.startsWith(`${p}/`),
-	)
-	// Only content sections are mirrored; otherwise send users to the paper.
-	return isMirrored ? `/${locale}${enPath}` : `/${locale}/paper`
+	// Mirrored pages get the /ko version; English-only pages stay on the same
+	// path (no ko content yet, but the menu/location is preserved).
+	if (!isMirrored(enPath)) return enPath
+	return enPath === "/" ? `/${locale}` : `/${locale}${enPath}`
 }
 
 export function LanguageToggle() {
