@@ -29,16 +29,22 @@ export interface Paper {
 }
 
 /**
- * Generate a slug from heading text (matches rehype-slug/github-slugger behavior)
- * github-slugger does NOT collapse multiple hyphens, so "Phases & Rituals" becomes "phases--rituals"
+ * Generate a slug from heading text (matches rehype-slug/github-slugger behavior).
+ *
+ * Must be Unicode-aware: rehype-slug preserves non-ASCII letters (e.g. Korean),
+ * so the TOC anchor ids have to as well, or clicking a translated heading won't
+ * jump anywhere (getElementById misses). The old `\w`/`\s` form was ASCII-only
+ * and stripped Korean entirely, collapsing every heading to "-".
+ *
+ * github-slugger does NOT collapse multiple hyphens, so "Phases & Rituals"
+ * becomes "phases--rituals".
  */
 function slugify(text: string): string {
 	return text
 		.toLowerCase()
 		.trim()
-		.replace(/[^\w\s-]/g, "") // Remove non-word chars except spaces and hyphens
-		.replace(/\s+/g, "-") // Replace spaces with hyphens
-	// Note: Do NOT collapse multiple hyphens - github-slugger preserves them
+		.replace(/\s+/g, "-") // Replace whitespace runs with hyphens
+		.replace(/[^\p{L}\p{N}\p{M}\-_]/gu, "") // Keep letters/numbers/marks (any script), hyphen, underscore
 }
 
 /**
@@ -46,15 +52,25 @@ function slugify(text: string): string {
  * Handles duplicate headings by appending -1, -2, etc. (matching rehype-slug behavior)
  */
 export function extractHeadings(content: string): PaperHeading[] {
-	const headingRegex = /^(#{2,4})\s+(.+)$/gm
+	const headingRegex = /^(#{2,4})\s+(.+)$/
 	const headings: PaperHeading[] = []
 	const stack: PaperHeading[] = []
 	const seenIds = new Map<string, number>()
 
-	let match: RegExpExecArray | null
-	while (true) {
-		match = headingRegex.exec(content)
-		if (match === null) break
+	// Walk line by line so we can skip headings inside fenced code blocks.
+	// rehype-slug (which generates the real anchor ids in the rendered body)
+	// ignores code fences, so the TOC must too — otherwise example headings like
+	// "### Description" inside a ```markdown block leak in as dead links.
+	let inFence = false
+	for (const line of content.split("\n")) {
+		if (/^\s*(```|~~~)/.test(line)) {
+			inFence = !inFence
+			continue
+		}
+		if (inFence) continue
+
+		const match = headingRegex.exec(line)
+		if (match === null) continue
 		const level = match[1].length
 		const text = match[2].trim()
 		const baseId = slugify(text)
