@@ -41,8 +41,15 @@ log() { printf '\033[1;34m▶ %s\033[0m\n' "$*"; }
 die() { printf '\033[1;31m✗ %s\033[0m\n' "$*" >&2; exit 1; }
 
 command -v aws >/dev/null || die "aws CLI not found"
-command -v bun >/dev/null || die "bun not found"
 command -v jq  >/dev/null || die "jq not found"
+
+# Resolve bun (it may be installed under ~/.bun/bin but not on PATH).
+BUN="${BUN:-}"
+if [ -z "$BUN" ]; then
+	if command -v bun >/dev/null; then BUN="bun"
+	elif [ -x "$HOME/.bun/bin/bun" ]; then BUN="$HOME/.bun/bin/bun"
+	else die "bun not found (install bun or set BUN=/path/to/bun)"; fi
+fi
 
 state_get() { [ -f "$STATE_FILE" ] && jq -r --arg k "$1" '.[$k] // empty' "$STATE_FILE" || true; }
 state_set() {
@@ -67,7 +74,7 @@ FUNCTION_ARN="$(state_get functionArn)"
 # =============================================================================
 if [ "${SKIP_BUILD:-}" != "1" ]; then
 	log "Building website (bun run build)…"
-	( cd "$WEBSITE_DIR" && bun run build )
+	( cd "$WEBSITE_DIR" && "$BUN" run build )
 fi
 [ -d "$WEBSITE_DIR/out" ] || die "out/ not found — build first (unset SKIP_BUILD)"
 
@@ -150,10 +157,14 @@ if [ -z "$DISTRIBUTION_ID" ]; then
 					EventType: "viewer-request", FunctionARN: $fn
 				} ] }
 			},
-			CustomErrorResponses: { Quantity: 1, Items: [ {
-				ErrorCode: 404, ResponsePagePath: "/404.html",
-				ResponseCode: "404", ErrorCachingMinTTL: 60
-			} ] }
+			CustomErrorResponses: { Quantity: 2, Items: [
+				{ ErrorCode: 404, ResponsePagePath: "/404.html",
+				  ResponseCode: "404", ErrorCachingMinTTL: 60 },
+				# A private S3 origin (OAC, no s3:ListBucket) returns 403 for
+				# missing keys; surface our 404 page instead of AccessDenied.
+				{ ErrorCode: 403, ResponsePagePath: "/404.html",
+				  ResponseCode: "404", ErrorCachingMinTTL: 60 }
+			] }
 		}')"
 
 	CREATE_OUT="$(aws cloudfront create-distribution --distribution-config "$DIST_CONFIG")"
