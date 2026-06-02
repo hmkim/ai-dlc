@@ -35,6 +35,12 @@ coverage/
 # Generated plugin zip
 website/public/ai-dlc-plugin.zip
 
+# AWS deploy state (account-specific resource IDs)
+website/scripts/.aws-deploy.json
+
+# Local tooling cache
+.omc/
+
 # AI-DLC worktrees
 .ai-dlc/worktrees/
 .claude/worktrees

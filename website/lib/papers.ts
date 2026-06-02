@@ -3,7 +3,12 @@ import path from "node:path"
 import matter from "gray-matter"
 import { getFileContributorNames } from "./git-contributors"
 
-const papersDirectory = path.join(process.cwd(), "content/papers")
+/** Default (English) source lives in content/papers; other locales in content/<locale>/papers. */
+function papersDir(locale?: string): string {
+	return locale && locale !== "en"
+		? path.join(process.cwd(), "content", locale, "papers")
+		: path.join(process.cwd(), "content/papers")
+}
 
 export interface PaperHeading {
 	id: string
@@ -33,7 +38,7 @@ function slugify(text: string): string {
 		.trim()
 		.replace(/[^\w\s-]/g, "") // Remove non-word chars except spaces and hyphens
 		.replace(/\s+/g, "-") // Replace spaces with hyphens
-		// Note: Do NOT collapse multiple hyphens - github-slugger preserves them
+	// Note: Do NOT collapse multiple hyphens - github-slugger preserves them
 }
 
 /**
@@ -89,13 +94,14 @@ export function extractHeadings(content: string): PaperHeading[] {
 /**
  * Get all paper slugs
  */
-export function getPaperSlugs(): string[] {
-	if (!fs.existsSync(papersDirectory)) {
+export function getPaperSlugs(locale?: string): string[] {
+	const dir = papersDir(locale)
+	if (!fs.existsSync(dir)) {
 		return []
 	}
 
 	return fs
-		.readdirSync(papersDirectory)
+		.readdirSync(dir)
 		.filter((file) => file.endsWith(".md"))
 		.map((file) => file.replace(/\.md$/, ""))
 }
@@ -103,8 +109,8 @@ export function getPaperSlugs(): string[] {
 /**
  * Get a paper by its slug
  */
-export function getPaperBySlug(slug: string): Paper | null {
-	const fullPath = path.join(papersDirectory, `${slug}.md`)
+export function getPaperBySlug(slug: string, locale?: string): Paper | null {
+	const fullPath = path.join(papersDir(locale), `${slug}.md`)
 
 	if (!fs.existsSync(fullPath)) {
 		return null
@@ -113,8 +119,11 @@ export function getPaperBySlug(slug: string): Paper | null {
 	const fileContents = fs.readFileSync(fullPath, "utf8")
 	const { data, content } = matter(fileContents)
 
-	// Get authors from git history, sorted by number of contributions
-	const gitAuthors = getFileContributorNames(fullPath)
+	// Get authors from git history (English source), sorted by contributions.
+	// Translated copies are generated, so use the English source for attribution.
+	const gitAuthors = getFileContributorNames(
+		path.join(papersDir(), `${slug}.md`),
+	)
 	// Fall back to frontmatter authors if no git history
 	const authors = gitAuthors.length > 0 ? gitAuthors : data.authors || []
 
@@ -185,8 +194,8 @@ export function getAllPapers(): Paper[] {
 /**
  * Get the AI-DLC paper (main paper)
  */
-export function getMainPaper(): Paper | null {
-	return getPaperBySlug("ai-dlc-2026")
+export function getMainPaper(locale?: string): Paper | null {
+	return getPaperBySlug("ai-dlc-2026", locale)
 }
 
 /**

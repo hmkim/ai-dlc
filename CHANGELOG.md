@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- Korean (`한국어`) translations of the website's paper, docs, and blog, served under `/ko/*` mirror routes with a header language toggle (English routes unchanged)
+- Hybrid i18n translation pipeline (`website/scripts/translate-content.ts`): English Markdown stays the single source of truth and is translated into locale copies via AWS Bedrock, with an incremental content-hash cache, AI-DLC terminology preservation, and heading-aware chunking for large documents
+- AWS deploy option for the website (`website/scripts/deploy-aws.sh` + `cf-rewrite.js`, see `website/scripts/DEPLOY.md`): one-command build → S3 sync → CloudFront invalidation, with idempotent first-run provisioning (private S3 bucket, OAC, clean-URL CloudFront Function, distribution)
+
 ## [1.84.1] - 2026-04-03
 
 Looking at the commits, version 1.84.1 reverts the haiku rebrand that was introduced in the previous release. Since the revert undoes changes without introducing new functionality or fixes a substantive issue, here's the minimal changelog entry:

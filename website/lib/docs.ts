@@ -2,7 +2,17 @@ import fs from "node:fs"
 import path from "node:path"
 import matter from "gray-matter"
 
-const docsDirectory = path.join(process.cwd(), "content/docs")
+/** Default (English) source lives in content/docs; other locales in content/<locale>/docs. */
+function docsDir(locale?: string): string {
+	return locale && locale !== "en"
+		? path.join(process.cwd(), "content", locale, "docs")
+		: path.join(process.cwd(), "content/docs")
+}
+
+/** Path prefix for hrefs so a ko page links to ko routes. */
+function localePrefix(locale?: string): string {
+	return locale && locale !== "en" ? `/${locale}` : ""
+}
 
 export interface DocPage {
 	slug: string
@@ -23,19 +33,20 @@ export interface NavSection {
 	items: NavItem[]
 }
 
-export function getDocSlugs(): string[] {
-	if (!fs.existsSync(docsDirectory)) {
+export function getDocSlugs(locale?: string): string[] {
+	const dir = docsDir(locale)
+	if (!fs.existsSync(dir)) {
 		return []
 	}
 
 	return fs
-		.readdirSync(docsDirectory)
+		.readdirSync(dir)
 		.filter((file) => file.endsWith(".md"))
 		.map((file) => file.replace(/\.md$/, ""))
 }
 
-export function getDocBySlug(slug: string): DocPage | null {
-	const fullPath = path.join(docsDirectory, `${slug}.md`)
+export function getDocBySlug(slug: string, locale?: string): DocPage | null {
+	const fullPath = path.join(docsDir(locale), `${slug}.md`)
 
 	if (!fs.existsSync(fullPath)) {
 		return null
@@ -53,10 +64,10 @@ export function getDocBySlug(slug: string): DocPage | null {
 	}
 }
 
-export function getAllDocs(): DocPage[] {
-	const slugs = getDocSlugs()
+export function getAllDocs(locale?: string): DocPage[] {
+	const slugs = getDocSlugs(locale)
 	const docs = slugs
-		.map((slug) => getDocBySlug(slug))
+		.map((slug) => getDocBySlug(slug, locale))
 		.filter((doc): doc is DocPage => doc !== null)
 
 	// Sort by order if specified, then by title
@@ -104,11 +115,7 @@ const sectionDefinitions: { title: string; slugs: string[] }[] = [
 	},
 	{
 		title: "Adoption",
-		slugs: [
-			"adoption-roadmap",
-			"checklist-team-onboarding",
-			"assessment",
-		],
+		slugs: ["adoption-roadmap", "checklist-team-onboarding", "assessment"],
 	},
 	{
 		title: "Examples",
@@ -120,8 +127,9 @@ const sectionDefinitions: { title: string; slugs: string[] }[] = [
 	},
 ]
 
-export function getDocsNavigation(): NavSection[] {
-	const docs = getAllDocs()
+export function getDocsNavigation(locale?: string): NavSection[] {
+	const prefix = localePrefix(locale)
+	const docs = getAllDocs(locale)
 	const docsBySlug = new Map(docs.map((doc) => [doc.slug, doc]))
 
 	const sections: NavSection[] = []
@@ -133,7 +141,7 @@ export function getDocsNavigation(): NavSection[] {
 			if (doc) {
 				items.push({
 					title: doc.title,
-					href: `/docs/${doc.slug}/`,
+					href: `${prefix}/docs/${doc.slug}/`,
 				})
 				docsBySlug.delete(slug)
 			}
@@ -153,7 +161,7 @@ export function getDocsNavigation(): NavSection[] {
 			title: "Other",
 			items: remainingDocs.map((doc) => ({
 				title: doc.title,
-				href: `/docs/${doc.slug}/`,
+				href: `${prefix}/docs/${doc.slug}/`,
 			})),
 		})
 	}

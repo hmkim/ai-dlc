@@ -1,0 +1,177 @@
+{
+  "ko/docs/community.md": {
+    "sourceHash": "e59aee932b1adb3789ef697dab1a11740a5a4c166db940ce55351461c357da16",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T02:39:06.022Z"
+  },
+  "ko/docs/checklist-first-intent.md": {
+    "sourceHash": "a92c4a3f539dbbeab8026abe59b8eb0b602c2311db9738ebef01e6b13ab58bab",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T02:49:20.494Z"
+  },
+  "ko/docs/cowork.md": {
+    "sourceHash": "d5e310068b4ea1c4973f4a88563d4d71d9b57a5d8684da970d7a28b5e3382def",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T02:55:41.212Z"
+  },
+  "ko/papers/ai-dlc-2026.md": {
+    "sourceHash": "dc3b986a54f43ee870ac91c3335c7b465ae302dc3a89a952c344e82f3d597d78",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T04:40:38.791Z"
+  },
+  "ko/docs/adoption-roadmap.md": {
+    "sourceHash": "f41ce70c9a1f0f54b9711ca607f7c5ecaa8110cb64a6b72f1f238ee51c8b1530",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:04:50.335Z"
+  },
+  "ko/docs/assessment.md": {
+    "sourceHash": "4af9119873491eb2da2a925a895da19cafaf286e105587ea504a66f2c59b17f6",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:06:04.231Z"
+  },
+  "ko/docs/checklist-team-onboarding.md": {
+    "sourceHash": "4eb01787a89dae21109eef96a3a099536062bc85abf7038c0b07b35cf7895db4",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:07:13.838Z"
+  },
+  "ko/docs/concepts.md": {
+    "sourceHash": "51696d4322f71f3ac579e5a4b46d1fa119637951b8c0e7fa60a19159135e147b",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:09:37.606Z"
+  },
+  "ko/docs/elaboration.md": {
+    "sourceHash": "6826e31a7611d706145e944b10ddc65d07bc8301366fdc7fdf10b0e17b1d3f5d",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:10:46.500Z"
+  },
+  "ko/docs/example-bugfix.md": {
+    "sourceHash": "f40d81539eae00528193740a487c4ce49ece3f13c283e8473cf92f9e7e1f2ae0",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:12:00.201Z"
+  },
+  "ko/docs/example-feature.md": {
+    "sourceHash": "0adcad8c7064686d4b8069ad77d836f1e8ec755a8737da8c5e244218296eb4ed",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:13:18.146Z"
+  },
+  "ko/docs/guide-ai.md": {
+    "sourceHash": "02f856ed5dac7564e3b87648aff1256befe0dd641ade67b7afdfdef65fee8ea0",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:14:29.456Z"
+  },
+  "ko/docs/guide-design-providers.md": {
+    "sourceHash": "c3a828e0897f2021a7d25a094b60f94b6611d47f0e7e4150e1b7b7a0224603a2",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:15:32.618Z"
+  },
+  "ko/docs/guide-designer.md": {
+    "sourceHash": "a723700004d9021b0310990e18c7001be5ff3f0a70da95db542de3f59393b9cd",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:17:00.570Z"
+  },
+  "ko/docs/guide-developer.md": {
+    "sourceHash": "d51243e7d25ab87b2b9db16d8c32055758d075b1f1b2e519df9c85a2a8add220",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:18:09.874Z"
+  },
+  "ko/docs/guide-manager.md": {
+    "sourceHash": "545c69059df0247d67b2db7af0744d5d911e80fb13c4ba40abbfcc91f30bd0b9",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:19:19.631Z"
+  },
+  "ko/docs/guide-tech-lead.md": {
+    "sourceHash": "c3d3bbb8ffe5961fc69ae332480063fdbca509796aa103dc367fb03c97581e3e",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:20:48.030Z"
+  },
+  "ko/docs/hats.md": {
+    "sourceHash": "2dc469f58f0645faf94c26e8734cba999e5bc7fa0ee649375b6f6a7181d92a4e",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:22:03.206Z"
+  },
+  "ko/docs/index.md": {
+    "sourceHash": "f80bff4f2c5ae2989a2157a94aa1af1170d2815a122af06e3d26f27b07d642a8",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:22:20.876Z"
+  },
+  "ko/docs/installation.md": {
+    "sourceHash": "d22469635c581fbc17ffb8df9c36e85ae88d1f32672773ac7a1f8fb0d6eb5387",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:22:46.098Z"
+  },
+  "ko/docs/operation-schema.md": {
+    "sourceHash": "0fdfe7fb5abbfa6ac264735551507977bde7e9314ee2cd16f035096c1eb51d97",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:23:09.228Z"
+  },
+  "ko/docs/operations-guide.md": {
+    "sourceHash": "6c9ff6adbe8d78f2955bce92ede7464cca1424f9056c25671251ad1a801c8d7e",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:23:48.383Z"
+  },
+  "ko/docs/providers.md": {
+    "sourceHash": "a60d4461a4c849245e1a65a7922be3362eb632c934eefa45b74a47f4f0fde633",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:24:18.781Z"
+  },
+  "ko/docs/quick-start.md": {
+    "sourceHash": "9b93e3c53004fcebf4d4ce8dedf06061cb05d64159ab586da37e8ee098d76754",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:24:36.072Z"
+  },
+  "ko/docs/stack-config.md": {
+    "sourceHash": "e92db7a533cc70affcc75db880505950bcb65c18d6f90acebe4aeda859772d68",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:24:53.086Z"
+  },
+  "ko/docs/workflows.md": {
+    "sourceHash": "a553b810cbac4b8873317e49d44279a7c4e54558f4d6fe719b306d42eaa252bb",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:26:27.197Z"
+  },
+  "ko/blog/adopting-existing-features.md": {
+    "sourceHash": "a275e949e979964eb7cceba4dd59dcd6047cbc5ede26ab6ffe369473564b8b12",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:27:19.628Z"
+  },
+  "ko/blog/agent-teams-support.md": {
+    "sourceHash": "1ccd1aab7791ef2c5f84ae31b2c782a15a23eaa5ca320ed1e1111151ef601284",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:28:10.788Z"
+  },
+  "ko/blog/ai-dlc-is-a-harness.md": {
+    "sourceHash": "f608b903c41cdfd9e5ffdf93231b9dc18e234c25cbac3c44adc006b7834c4eb4",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:30:27.440Z"
+  },
+  "ko/blog/dark-factories-and-the-loop.md": {
+    "sourceHash": "e6065459544ca137d191ee40ac3cbf67d32dfc85e005f9b5583fa0fc4e49d0e7",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:32:16.271Z"
+  },
+  "ko/blog/design-as-a-first-class-concern.md": {
+    "sourceHash": "b963df3a1e962bffece85beca0fe7b9855eb00ee00296da054536e385e4bacae",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:33:20.616Z"
+  },
+  "ko/blog/design-providers-and-knowledge.md": {
+    "sourceHash": "f7776c91d2d692679a6b0f69969ca1f24c58c284969ef886aec742d9de204c40",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:34:34.701Z"
+  },
+  "ko/blog/first-class-passes.md": {
+    "sourceHash": "8c1cc5445646076c93f8528e934c6047d7bfd4cda0e1d6eda3b000cbee6eff3a",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:35:29.841Z"
+  },
+  "ko/blog/introducing-ai-dlc.md": {
+    "sourceHash": "aee224c31c479653c4c676388134d9419c59798a9e3751e02d63b32973c2fea5",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:35:46.933Z"
+  },
+  "ko/blog/quick-mode-and-autopilot.md": {
+    "sourceHash": "c886e259eca86e72974a0a5892dc53483dc2fb39ed72d23406062af432cf5711",
+    "model": "us.anthropic.claude-sonnet-4-6",
+    "translatedAt": "2026-06-02T03:36:53.341Z"
+  }
+}

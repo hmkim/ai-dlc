@@ -17,7 +17,11 @@ export async function GET() {
 	const staticPages = [
 		{ url: SITE_URL, changefreq: "weekly", priority: "1.0" },
 		{ url: `${SITE_URL}/docs/`, changefreq: "weekly", priority: "0.9" },
-		{ url: `${SITE_URL}/docs/installation/`, changefreq: "monthly", priority: "0.9" },
+		{
+			url: `${SITE_URL}/docs/installation/`,
+			changefreq: "monthly",
+			priority: "0.9",
+		},
 		{ url: `${SITE_URL}/blog/`, changefreq: "daily", priority: "0.9" },
 		{ url: `${SITE_URL}/paper/`, changefreq: "monthly", priority: "0.8" },
 		{ url: `${SITE_URL}/changelog/`, changefreq: "weekly", priority: "0.7" },
@@ -41,6 +45,25 @@ export async function GET() {
 		priority: "0.8",
 	}))
 
+	// Korean (ko) mirror pages — content sections only (/ko/paper, /ko/docs, /ko/blog)
+	const koDocs = getAllDocs("ko")
+	const koPosts = getAllBlogPosts("ko")
+	const koUrls = [
+		{ url: `${SITE_URL}/ko/paper/`, changefreq: "monthly", priority: "0.7" },
+		{ url: `${SITE_URL}/ko/docs/`, changefreq: "weekly", priority: "0.7" },
+		{ url: `${SITE_URL}/ko/blog/`, changefreq: "daily", priority: "0.6" },
+		...koDocs.map((doc) => ({
+			url: `${SITE_URL}/ko/docs/${doc.slug}/`,
+			changefreq: "weekly",
+			priority: "0.6",
+		})),
+		...koPosts.map((post) => ({
+			url: `${SITE_URL}/ko/blog/${post.slug}/`,
+			changefreq: "monthly",
+			priority: "0.5",
+		})),
+	].map((page) => ({ ...page, lastmod: formatDate(now) }))
+
 	const allUrls = [
 		...staticPages.map((page) => ({
 			...page,
@@ -48,6 +71,7 @@ export async function GET() {
 		})),
 		...blogUrls,
 		...docUrls,
+		...koUrls,
 	]
 
 	const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

@@ -4,6 +4,7 @@ import { navigation, primaryNavItems } from "@/lib/navigation"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useCallback, useEffect, useRef, useState } from "react"
+import { LanguageToggle } from "./LanguageToggle"
 import { ThemeToggle } from "./ThemeToggle"
 import { BottomNav, MegaMenu, MobileNav } from "./navigation"
 
@@ -192,12 +193,14 @@ export function Header() {
 									/>
 								</svg>
 							</a>
+							<LanguageToggle />
 							<ThemeToggle />
 						</div>
 					</div>
 
 					{/* Mobile Menu Button */}
 					<div className="flex items-center gap-2 md:hidden">
+						<LanguageToggle />
 						<ThemeToggle />
 					</div>
 				</nav>
